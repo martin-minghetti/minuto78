@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Minuto 78 | Software que cierra el partido",
     description:
-      "El prototipo te lleva al 80%. Nosotros jugamos el otro 80%: software que cobra, factura y no se cae.",
+      "El prototipo te lleva al 80%. Nosotros hacemos el 20% que falta: software que cobra, factura y no se cae.",
     locale: "es_AR",
     type: "website",
   },
