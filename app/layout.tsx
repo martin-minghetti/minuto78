@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo_Black, Asap, Chivo_Mono } from "next/font/google";
+import { Archivo, Archivo_Black, Chivo_Mono } from "next/font/google";
 import "./globals.css";
 
 const archivoBlack = Archivo_Black({
@@ -8,8 +8,8 @@ const archivoBlack = Archivo_Black({
   subsets: ["latin"],
 });
 
-const asap = Asap({
-  variable: "--font-asap",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
 });
 
@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${archivoBlack.variable} ${asap.variable} ${chivoMono.variable} h-full antialiased`}
+      className={`${archivoBlack.variable} ${archivo.variable} ${chivoMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

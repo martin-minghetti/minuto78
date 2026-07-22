@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-pitch: #0c382b;
-  --color-pitch-2: #11462f;
-  --color-pitch-3: #1a5a3e;
-  --color-line: #f3efe4;
+  --color-pitch: #0a120e;
+  --color-pitch-2: #101b15;
+  --color-pitch-3: #17251c;
+  --color-line: #eef2ec;
   --color-card: #ffc821;
   --color-card-2: #ffd75a;
   --color-redcard: #e5484d;
-  --color-muted: #9fbdae;
+  --color-muted: #8aa596;
 
   --font-display: var(--font-archivo-black), sans-serif;
-  --font-body: var(--font-asap), sans-serif;
+  --font-body: var(--font-archivo), sans-serif;
   --font-mono: var(--font-chivo-mono), monospace;
 }
 
@@ -45,5 +45,13 @@
 
 /* linea de cal: bordes como marcas de cancha */
 .chalk {
-  border-color: color-mix(in srgb, var(--color-line) 22%, transparent);
+  border-color: color-mix(in srgb, var(--color-line) 16%, transparent);
+}
+
+/* glow amarillo para hovers, estilo grafica de transmision */
+.glow-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.glow-card:hover {
+  box-shadow: 0 0 32px color-mix(in srgb, var(--color-card) 14%, transparent);
 }
