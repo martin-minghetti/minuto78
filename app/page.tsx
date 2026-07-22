@@ -298,17 +298,35 @@ export default function Home() {
             <span className="text-card">20% que falta.</span>
           </h2>
           <Posesion />
-          <div className="mt-12 grid sm:grid-cols-2 gap-x-12 gap-y-8 max-w-4xl">
-            {[
-              "El checkout da error y no sabés si el cliente pagó o no.",
-              "El stock del local y el de la web nunca coinciden.",
-              "La confirmación del pedido llega a spam, o no llega.",
-              "Cualquiera que adivina una dirección ve datos de tus clientes.",
-            ].map((item) => (
-              <p key={item} className="border-l-2 border-redcard pl-5 text-lg text-muted leading-relaxed">
-                {item}
-              </p>
-            ))}
+          <div className="mt-16 max-w-3xl">
+            <p className="font-mono text-xs uppercase tracking-widest text-muted mb-8">
+              Incidencias del segundo tiempo
+            </p>
+            <div className="border-l chalk">
+              {[
+                { tipo: "amarilla", label: "Falta", txt: "El checkout da error y no sabés si el cliente pagó o no." },
+                { tipo: "amarilla", label: "Falta", txt: "El stock del local y el de la web nunca coinciden." },
+                { tipo: "amarilla", label: "Falta", txt: "La confirmación del pedido llega a spam, o no llega." },
+                { tipo: "roja", label: "Roja directa", txt: "Cualquiera que adivina una dirección ve datos de tus clientes." },
+              ].map((f, i, arr) => (
+                <div key={f.txt} className={`relative pl-10 ${i < arr.length - 1 ? "pb-10" : ""}`}>
+                  <span
+                    className={`absolute -left-[11px] top-0.5 w-[22px] h-[30px] rounded-[3px] rotate-[8deg] shadow-lg ${
+                      f.tipo === "roja" ? "bg-redcard" : "bg-card"
+                    }`}
+                    aria-hidden="true"
+                  />
+                  <p
+                    className={`font-mono text-xs uppercase tracking-widest mb-1 ${
+                      f.tipo === "roja" ? "text-redcard" : "text-muted"
+                    }`}
+                  >
+                    {f.label}
+                  </p>
+                  <p className="text-lg sm:text-xl leading-relaxed">{f.txt}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <p className="mt-12 text-lg sm:text-xl max-w-2xl leading-relaxed">
             Nada de esto se ve en una maqueta. Aparece cuando entra el primer pedido real. Ese es el
@@ -330,35 +348,49 @@ export default function Home() {
             Estos cinco negocios no existen: son demos que construimos completos, para que pruebes
             el sistema de punta a punta con pagos de prueba. Entrá, comprá, reservá. Todo funciona.
           </p>
-          <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {demos.map((d) => (
-              <a
+          <div className="mt-20 space-y-20 lg:space-y-28">
+            {demos.map((d, i) => (
+              <div
                 key={d.name}
-                href={d.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group border chalk rounded-md overflow-hidden bg-pitch glow-card hover:border-card/60"
+                className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
-                <div className="relative aspect-[1280/577] overflow-hidden border-b chalk">
-                  <Image
-                    src={d.img}
-                    alt={`Captura del demo ${d.name}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-5">
-                  <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                <a
+                  href={d.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group block lg:col-span-7 ${i % 2 === 1 ? "lg:order-2" : ""}`}
+                >
+                  <div className="relative aspect-[1280/577] overflow-hidden rounded-md border chalk glow-card group-hover:border-card/60">
+                    <Image
+                      src={d.img}
+                      alt={`Captura del demo ${d.name}`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 58vw"
+                      className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
+                    />
+                  </div>
+                </a>
+                <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                  <span className="minuto-outline font-display text-6xl sm:text-7xl leading-none block select-none" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="font-mono text-xs uppercase tracking-widest text-muted mt-4">
                     {d.vertical}
                   </p>
-                  <h3 className="font-bold text-xl mt-2">{d.name}</h3>
-                  <p className="mt-2 text-muted leading-relaxed">{d.proof}</p>
-                  <p className="mt-4 font-mono text-sm uppercase tracking-widest text-card">
+                  <h3 className="font-display uppercase text-4xl sm:text-5xl tracking-wide mt-2">
+                    {d.name}
+                  </h3>
+                  <p className="mt-4 text-lg text-muted leading-relaxed">{d.proof}</p>
+                  <a
+                    href={d.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-5 font-mono text-sm uppercase tracking-widest text-card hover:text-card-2"
+                  >
                     Probalo en vivo
-                  </p>
+                  </a>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>
@@ -373,33 +405,43 @@ export default function Home() {
             Precio cerrado, plazo en días,{" "}
             <span className="text-card">sin sorpresas.</span>
           </h2>
-          <div className="mt-14 grid sm:grid-cols-2 gap-6">
+          <div className="mt-16 border-t chalk">
             {paquetes.map((p) => (
-              <div key={p.name} className="border chalk rounded-md p-6 bg-pitch-2/50 glow-card hover:border-card/40">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-bold text-2xl">{p.name}</h3>
-                  <p className="font-mono text-card whitespace-nowrap">{p.precio}</p>
+              <div
+                key={p.name}
+                className="grid sm:grid-cols-12 gap-4 items-baseline border-b chalk py-9 pl-4 border-l-2 border-l-transparent hover:border-l-card hover:bg-pitch-2/40 transition-colors"
+              >
+                <h3 className="sm:col-span-4 font-display uppercase text-3xl sm:text-4xl tracking-wide">
+                  {p.name}
+                </h3>
+                <p className="sm:col-span-5 text-muted leading-relaxed sm:pr-8">{p.desc}</p>
+                <div className="sm:col-span-3 sm:text-right">
+                  <p className="font-mono text-card text-lg whitespace-nowrap">{p.precio}</p>
+                  <p className="font-mono text-xs uppercase tracking-widest text-muted mt-1">
+                    entrega {p.plazo}
+                  </p>
                 </div>
-                <p className="mt-3 text-muted leading-relaxed">{p.desc}</p>
-                <p className="mt-5 font-mono text-sm text-muted">
-                  Entrega: {p.plazo} · incluye el primer mes del Plan de crecimiento
-                </p>
               </div>
             ))}
           </div>
+          <p className="mt-6 font-mono text-sm text-muted">
+            Todos los paquetes incluyen el primer mes del Plan de crecimiento.
+          </p>
 
           {/* rescate: tarjeta roja */}
-          <div className="mt-8 border-2 border-redcard rounded-md p-6 sm:p-8 bg-pitch-2/50 -rotate-1">
-            <div className="flex items-start gap-5">
-              <div className="w-10 h-14 bg-redcard rounded-sm shrink-0 mt-1 rotate-6" aria-hidden="true" />
+          <div className="mt-14 border border-redcard/70 rounded-md p-6 sm:p-10 bg-pitch-2/50 shadow-[0_0_40px_rgba(229,72,77,0.12)]">
+            <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8">
+              <div className="w-12 h-16 bg-redcard rounded-[3px] shrink-0 rotate-6 shadow-lg" aria-hidden="true" />
               <div>
-                <h3 className="font-bold text-2xl">Rescate de prototipo</h3>
-                <p className="mt-3 text-muted leading-relaxed max-w-2xl">
+                <h3 className="font-display uppercase text-3xl sm:text-4xl tracking-wide">
+                  Rescate de prototipo
+                </h3>
+                <p className="mt-4 text-lg text-muted leading-relaxed max-w-2xl">
                   ¿Te hiciste el sitio con inteligencia artificial, o lo empezó alguien que ya no
                   está, y quedó en el famoso 80%? Lo revisamos y te decimos exactamente qué falta
                   para que funcione de verdad.
                 </p>
-                <p className="mt-4 font-mono text-card">
+                <p className="mt-5 font-mono text-card">
                   Diagnóstico en 48 horas · USD 150 · se descuenta del arreglo
                 </p>
               </div>
