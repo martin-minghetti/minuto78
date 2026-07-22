@@ -543,7 +543,7 @@ export default function Home() {
           <h2 className="font-display uppercase text-4xl sm:text-6xl max-w-3xl leading-[1.02] tracking-wide">
             Lo que todos <span className="text-card">preguntan.</span>
           </h2>
-          <div className="mt-14 max-w-3xl border-t chalk">
+          <div className="faq mt-14 border-t chalk">
             {[
               {
                 q: "¿El sitio es mío o de ustedes?",
@@ -561,18 +561,34 @@ export default function Home() {
                 q: "¿Qué necesito para arrancar?",
                 a: "Fotos, precios y los datos de tu negocio. El texto del sitio lo escribimos nosotros. No necesitás saber nada técnico.",
               },
-            ].map((f) => (
-              <details key={f.q} className="group border-b chalk">
-                <summary className="flex items-center justify-between gap-6 py-6 cursor-pointer list-none font-bold text-lg [&::-webkit-details-marker]:hidden">
-                  {f.q}
+            ].map((f, i) => (
+              <details key={f.q} className="group border-b chalk relative">
+                <span
+                  className="absolute left-0 top-0 bottom-0 w-0.5 bg-card scale-y-0 group-hover:scale-y-100 group-open:scale-y-100 transition-transform origin-top"
+                  aria-hidden="true"
+                />
+                <summary className="grid grid-cols-[auto_1fr_auto] items-baseline gap-5 sm:gap-8 py-8 pl-5 sm:pl-8 pr-2 cursor-pointer list-none [&::-webkit-details-marker]:hidden group-hover:bg-pitch-2/40 transition-colors">
                   <span
-                    className="font-mono text-card text-2xl leading-none transition-transform group-open:rotate-45"
+                    className="minuto-outline font-display text-3xl sm:text-4xl leading-none select-none translate-y-0.5"
+                    aria-hidden="true"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display uppercase text-2xl sm:text-3xl tracking-wide leading-tight group-open:text-card transition-colors">
+                    {f.q}
+                  </span>
+                  <span
+                    className="font-mono text-card text-3xl leading-none transition-transform duration-300 group-open:rotate-45 justify-self-end"
                     aria-hidden="true"
                   >
                     +
                   </span>
                 </summary>
-                <p className="pb-6 text-muted leading-relaxed max-w-2xl">{f.a}</p>
+                <div className="pl-5 sm:pl-8">
+                  <p className="pb-8 sm:ml-[4.5rem] text-lg text-muted leading-relaxed max-w-2xl border-l-2 border-card/40 pl-6">
+                    {f.a}
+                  </p>
+                </div>
               </details>
             ))}
           </div>

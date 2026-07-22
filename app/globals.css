@@ -101,3 +101,16 @@
   color: transparent;
   -webkit-text-stroke: 2px color-mix(in srgb, var(--color-line) 28%, transparent);
 }
+
+/* faq: apertura animada de details nativo (Chrome/Edge; resto abre sin animar) */
+:root {
+  interpolate-size: allow-keywords;
+}
+.faq details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete;
+}
+.faq details[open]::details-content {
+  block-size: auto;
+}
