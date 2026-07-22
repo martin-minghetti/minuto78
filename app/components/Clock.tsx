@@ -2,22 +2,36 @@
 
 import { useEffect, useState } from "react";
 
+const START = 78 * 60;
+const END = 93 * 60;
+
 export default function Clock() {
-  const [seconds, setSeconds] = useState(0);
+  const [sec, setSec] = useState(START);
 
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduced.matches) return;
-    const id = setInterval(() => setSeconds((s) => s + 1), 1000);
-    return () => clearInterval(id);
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        const p = max > 0 ? doc.scrollTop / max : 0;
+        setSec(Math.round(START + p * (END - START)));
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
-  const total = 78 * 60 + seconds;
-  const min = Math.floor(total / 60);
+  const min = Math.floor(sec / 60);
   const label =
     min >= 90
-      ? "90'+"
-      : `${min}:${String(total % 60).padStart(2, "0")}`;
+      ? `90'+${min - 90 > 0 ? min - 90 : 1}`
+      : `${min}:${String(sec % 60).padStart(2, "0")}`;
 
   return (
     <span

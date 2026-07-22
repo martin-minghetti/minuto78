@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Archivo, Archivo_Black, Chivo_Mono } from "next/font/google";
+import { Anton, Archivo, Chivo_Mono } from "next/font/google";
 import "./globals.css";
 
-const archivoBlack = Archivo_Black({
-  variable: "--font-archivo-black",
+const anton = Anton({
+  variable: "--font-anton",
   weight: "400",
   subsets: ["latin"],
 });
@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${archivoBlack.variable} ${archivo.variable} ${chivoMono.variable} h-full antialiased`}
+      className={`${anton.variable} ${archivo.variable} ${chivoMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

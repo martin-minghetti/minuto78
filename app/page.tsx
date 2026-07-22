@@ -74,12 +74,33 @@ const paquetes = [
   },
 ];
 
+const ticker = [
+  "Pagos que se acreditan",
+  "Stock que cierra",
+  "Correos que llegan",
+  "Panel propio",
+  "Precio cerrado",
+  "Entrega en días",
+];
+
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <p className="font-mono text-sm tracking-widest uppercase text-card mb-4 flex items-center gap-3">
       <span className="inline-block w-8 h-px bg-card/60" aria-hidden="true" />
       {children}
     </p>
+  );
+}
+
+/* numeral de minuto gigante, señaletica de estadio */
+function Minuto({ n }: { n: string }) {
+  return (
+    <span
+      className="minuto-outline hidden lg:block absolute -left-10 top-10 font-display text-[13rem] leading-none select-none pointer-events-none"
+      aria-hidden="true"
+    >
+      {n}
+    </span>
   );
 }
 
@@ -146,13 +167,35 @@ function Posesion() {
   );
 }
 
+/* cartel LED perimetral */
+function Ticker() {
+  const items = [...ticker, ...ticker];
+  return (
+    <div className="border-y chalk bg-pitch-2/60 overflow-hidden py-3" aria-hidden="true">
+      <div className="ticker-track">
+        {items.map((t, i) => (
+          <span
+            key={i}
+            className="font-mono uppercase tracking-[0.25em] text-sm text-card whitespace-nowrap px-6"
+          >
+            {t} <span className="text-muted px-4">///</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <main className="flex-1">
+      {/* grano de transmision */}
+      <div className="grain fixed inset-0 z-[60] pointer-events-none opacity-[0.05]" aria-hidden="true" />
+
       {/* score bug */}
       <header className="fixed top-0 inset-x-0 z-50 bg-pitch/90 backdrop-blur-md border-b chalk">
         <div className="mx-auto max-w-6xl px-5 h-14 flex items-center justify-between">
-          <p className="font-display text-lg tracking-tight">
+          <p className="font-display text-xl tracking-wide">
             MINUTO <span className="text-card">78</span>
           </p>
           <div className="flex items-center gap-4">
@@ -171,10 +214,12 @@ export default function Home() {
             </a>
           </div>
         </div>
+        {/* barra de tiempo de descuento: avanza con el scroll */}
+        <div className="match-progress absolute bottom-0 left-0 h-0.5 w-full bg-card" aria-hidden="true" />
       </header>
 
       {/* hero */}
-      <section className="relative overflow-hidden pt-36 pb-24">
+      <section className="relative overflow-hidden pt-40 pb-24">
         <div
           className="absolute inset-x-0 top-0 h-96 pointer-events-none"
           style={{
@@ -186,11 +231,14 @@ export default function Home() {
         <Pizarra />
         <div className="relative mx-auto max-w-6xl px-5">
           <Eyebrow>Segundo tiempo · minuto 78</Eyebrow>
-          <h1 className="font-display uppercase text-4xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight max-w-4xl">
-            Los partidos se definen{" "}
+          <h1 className="font-display uppercase text-[17vw] sm:text-8xl lg:text-[9.5rem] leading-[0.92] tracking-wide max-w-5xl">
+            Los partidos
+            <br />
+            se definen
+            <br />
             <span className="text-card">al final.</span>
           </h1>
-          <p className="mt-6 text-lg sm:text-xl text-muted max-w-2xl leading-relaxed">
+          <p className="mt-8 text-lg sm:text-xl text-muted max-w-2xl leading-relaxed">
             Cualquier herramienta con inteligencia artificial te hace un prototipo: esa parte hoy es
             fácil. Lo difícil es lo que viene después: que los pagos se acrediten, que el stock
             cierre, que los correos lleguen. Nosotros entramos ahí, a cerrar el partido.
@@ -238,12 +286,16 @@ export default function Home() {
         </div>
       </section>
 
+      <Ticker />
+
       {/* 80' problema */}
-      <section className="border-t chalk py-24">
-        <div className="mx-auto max-w-6xl px-5">
+      <section className="relative overflow-hidden py-24">
+        <Minuto n="80" />
+        <div className="relative mx-auto max-w-6xl px-5">
           <Eyebrow>80&apos; · Lo que se rompe</Eyebrow>
-          <h2 className="font-display uppercase text-3xl sm:text-5xl max-w-3xl leading-tight tracking-tight">
-            El primer 80% hoy es casi gratis. El negocio está en el 20% que falta.
+          <h2 className="font-display uppercase text-4xl sm:text-6xl max-w-3xl leading-[1.02] tracking-wide">
+            El primer 80% hoy es casi gratis. El negocio está en el{" "}
+            <span className="text-card">20% que falta.</span>
           </h2>
           <Posesion />
           <div className="mt-12 grid sm:grid-cols-2 gap-x-12 gap-y-8 max-w-4xl">
@@ -266,11 +318,13 @@ export default function Home() {
       </section>
 
       {/* 82' demos */}
-      <section id="demos" className="border-t chalk py-24 bg-pitch-2/50">
-        <div className="mx-auto max-w-6xl px-5">
+      <section id="demos" className="relative overflow-hidden border-t chalk py-24 bg-pitch-2/50 mowing">
+        <Minuto n="82" />
+        <div className="relative mx-auto max-w-6xl px-5">
           <Eyebrow>82&apos; · Las pruebas</Eyebrow>
-          <h2 className="font-display uppercase text-3xl sm:text-5xl max-w-3xl leading-tight tracking-tight">
-            No te mostramos pantallas. Te dejamos comprar.
+          <h2 className="font-display uppercase text-4xl sm:text-6xl max-w-3xl leading-[1.02] tracking-wide">
+            No te mostramos pantallas.{" "}
+            <span className="text-card">Te dejamos comprar.</span>
           </h2>
           <p className="mt-6 text-lg text-muted max-w-2xl leading-relaxed">
             Estos cinco negocios no existen: son demos que construimos completos, para que pruebes
@@ -298,7 +352,7 @@ export default function Home() {
                   <p className="font-mono text-xs uppercase tracking-widest text-muted">
                     {d.vertical}
                   </p>
-                  <h3 className="font-display text-xl mt-2">{d.name}</h3>
+                  <h3 className="font-bold text-xl mt-2">{d.name}</h3>
                   <p className="mt-2 text-muted leading-relaxed">{d.proof}</p>
                   <p className="mt-4 font-mono text-sm uppercase tracking-widest text-card">
                     Probalo en vivo
@@ -311,17 +365,19 @@ export default function Home() {
       </section>
 
       {/* 86' paquetes */}
-      <section className="border-t chalk py-24">
-        <div className="mx-auto max-w-6xl px-5">
+      <section className="relative overflow-hidden border-t chalk py-24">
+        <Minuto n="86" />
+        <div className="relative mx-auto max-w-6xl px-5">
           <Eyebrow>86&apos; · Los paquetes</Eyebrow>
-          <h2 className="font-display uppercase text-3xl sm:text-5xl max-w-3xl leading-tight tracking-tight">
-            Precio cerrado, plazo en días, sin sorpresas.
+          <h2 className="font-display uppercase text-4xl sm:text-6xl max-w-3xl leading-[1.02] tracking-wide">
+            Precio cerrado, plazo en días,{" "}
+            <span className="text-card">sin sorpresas.</span>
           </h2>
           <div className="mt-14 grid sm:grid-cols-2 gap-6">
             {paquetes.map((p) => (
               <div key={p.name} className="border chalk rounded-md p-6 bg-pitch-2/50 glow-card hover:border-card/40">
                 <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-display text-2xl">{p.name}</h3>
+                  <h3 className="font-bold text-2xl">{p.name}</h3>
                   <p className="font-mono text-card whitespace-nowrap">{p.precio}</p>
                 </div>
                 <p className="mt-3 text-muted leading-relaxed">{p.desc}</p>
@@ -333,11 +389,11 @@ export default function Home() {
           </div>
 
           {/* rescate: tarjeta roja */}
-          <div className="mt-6 border-2 border-redcard rounded-md p-6 sm:p-8 bg-pitch-2/50">
+          <div className="mt-8 border-2 border-redcard rounded-md p-6 sm:p-8 bg-pitch-2/50 -rotate-1">
             <div className="flex items-start gap-5">
-              <div className="w-10 h-14 bg-redcard rounded-sm shrink-0 mt-1" aria-hidden="true" />
+              <div className="w-10 h-14 bg-redcard rounded-sm shrink-0 mt-1 rotate-6" aria-hidden="true" />
               <div>
-                <h3 className="font-display text-2xl">Rescate de prototipo</h3>
+                <h3 className="font-bold text-2xl">Rescate de prototipo</h3>
                 <p className="mt-3 text-muted leading-relaxed max-w-2xl">
                   ¿Te hiciste el sitio con inteligencia artificial, o lo empezó alguien que ya no
                   está, y quedó en el famoso 80%? Lo revisamos y te decimos exactamente qué falta
@@ -350,7 +406,7 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="mt-8 text-sm text-muted font-mono">
+          <p className="mt-10 text-sm text-muted font-mono">
             Precios para Argentina en pesos al cambio del día. Trabajamos también con España,
             México y Estados Unidos.
           </p>
@@ -358,12 +414,13 @@ export default function Home() {
       </section>
 
       {/* 88' plan de crecimiento */}
-      <section className="border-t chalk py-24 bg-pitch-2/50">
-        <div className="mx-auto max-w-6xl px-5 grid lg:grid-cols-2 gap-12">
+      <section className="relative overflow-hidden border-t chalk py-24 bg-pitch-2/50">
+        <Minuto n="88" />
+        <div className="relative mx-auto max-w-6xl px-5 grid lg:grid-cols-2 gap-12">
           <div>
             <Eyebrow>88&apos; · Después de la entrega</Eyebrow>
-            <h2 className="font-display uppercase text-3xl sm:text-5xl leading-tight tracking-tight">
-              El sitio se entrega. El negocio sigue.
+            <h2 className="font-display uppercase text-4xl sm:text-6xl leading-[1.02] tracking-wide">
+              El sitio se entrega. <span className="text-card">El negocio sigue.</span>
             </h2>
           </div>
           <div className="lg:pt-14">
@@ -377,29 +434,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 90'+ cierre */}
-      <section className="relative border-t chalk py-28 overflow-hidden">
-        <div
-          className="absolute inset-x-0 bottom-0 h-96 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 100% at 50% 100%, color-mix(in srgb, var(--color-card) 6%, transparent), transparent)",
-          }}
-          aria-hidden="true"
-        />
+      {/* 90'+ cierre: pantalla amarilla */}
+      <section className="relative overflow-hidden bg-card text-pitch py-28">
         <div className="relative mx-auto max-w-6xl px-5 text-center">
-          <p className="font-mono text-sm tracking-widest uppercase text-card mb-4">
+          <p className="font-mono text-sm tracking-widest uppercase mb-4">
             90&apos;+ · Tiempo de descuento
           </p>
-          <h2 className="font-display uppercase text-4xl sm:text-6xl tracking-tight">¿Empezamos?</h2>
-          <p className="mt-6 text-lg text-muted max-w-xl mx-auto leading-relaxed">
+          <h2 className="font-display uppercase text-[16vw] sm:text-8xl lg:text-[10rem] leading-none tracking-wide">
+            ¿Empezamos?
+          </h2>
+          <p className="mt-8 text-lg max-w-xl mx-auto leading-relaxed">
             Contanos qué necesitás y te respondemos hoy. Si preferís hablar, agendá una llamada de
             20 minutos, sin compromiso.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
               href={WA} target="_blank" rel="noopener noreferrer"
-              className="bg-card text-pitch font-bold px-6 py-3.5 rounded-sm hover:bg-card-2 transition-colors"
+              className="bg-pitch text-card font-bold px-6 py-3.5 rounded-sm hover:bg-pitch-2 transition-colors"
             >
               Escribinos por WhatsApp
             </a>
@@ -407,7 +458,7 @@ export default function Home() {
               href={CAL}
               target="_blank"
               rel="noopener noreferrer"
-              className="border chalk px-6 py-3.5 rounded-sm font-bold glow-card hover:border-card/60"
+              className="border-2 border-pitch px-6 py-3.5 rounded-sm font-bold hover:bg-card-2 transition-colors"
             >
               Agendá una llamada
             </a>
