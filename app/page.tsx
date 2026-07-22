@@ -285,7 +285,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="group border chalk rounded-md overflow-hidden bg-pitch glow-card hover:border-card/60"
               >
-                <div className="relative aspect-[16/9] overflow-hidden border-b chalk">
+                <div className="relative aspect-[1280/577] overflow-hidden border-b chalk">
                   <Image
                     src={d.img}
                     alt={`Captura del demo ${d.name}`}
@@ -377,29 +377,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 90' quién juega */}
-      <section className="border-t chalk py-24">
-        <div className="mx-auto max-w-6xl px-5 flex flex-col sm:flex-row gap-10 items-start">
-          <Image
-            src="/martin-portrait.jpg"
-            alt="Martín Minghetti"
-            width={160}
-            height={160}
-            className="rounded-md border chalk"
-          />
-          <div className="max-w-2xl">
-            <Eyebrow>90&apos; · Quién juega</Eyebrow>
-            <h2 className="font-display text-3xl sm:text-4xl leading-tight">Martín Minghetti</h2>
-            <p className="mt-5 text-lg text-muted leading-relaxed">
-              Siete años construyendo software a medida para clientes en Europa, desde Bariloche.
-              Hoy con inteligencia artificial en el equipo: la uso para jugar los primeros 70
-              minutos rápido, y dedico el tiempo a los detalles que definen el partido. Hablás
-              directo conmigo, sin intermediarios.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* 90'+ cierre */}
       <section className="relative border-t chalk py-28 overflow-hidden">
         <div
@@ -414,7 +391,7 @@ export default function Home() {
           <p className="font-mono text-sm tracking-widest uppercase text-card mb-4">
             90&apos;+ · Tiempo de descuento
           </p>
-          <h2 className="font-display uppercase text-4xl sm:text-6xl tracking-tight">¿Jugamos?</h2>
+          <h2 className="font-display uppercase text-4xl sm:text-6xl tracking-tight">¿Empezamos?</h2>
           <p className="mt-6 text-lg text-muted max-w-xl mx-auto leading-relaxed">
             Contanos qué necesitás y te respondemos hoy. Si preferís hablar, agendá una llamada de
             20 minutos, sin compromiso.
