@@ -1,7 +1,12 @@
 import Image from "next/image";
 import Clock from "./components/Clock";
 
-const WA = "https://wa.me/5492241622290?text=Hola%2C%20vengo%20del%20sitio%20de%20Minuto%2078";
+const wa = (text: string) =>
+  `https://wa.me/5492241622290?text=${encodeURIComponent(text)}`;
+const WA = wa("Hola, vengo del sitio de Minuto 78.");
+const WA_HERO = wa("Hola, quiero hacer el sitio de mi negocio.");
+const WA_RESCATE = wa("Hola, tengo un sitio a medias y quiero el diagnóstico.");
+const WA_CIERRE = wa("Hola, quiero empezar mi proyecto.");
 const CAL = "https://cal.com/martin-minghetti";
 
 const demos = [
@@ -67,7 +72,7 @@ const paquetes = [
     plazo: "14 días",
   },
   {
-    name: "Membresías",
+    name: "Membresías y cuotas",
     desc: "Cuotas y suscripciones con cobro automático. Se termina perseguir socios por WhatsApp.",
     precio: "desde USD 900",
     plazo: "14 días",
@@ -79,6 +84,7 @@ const ticker = [
   "Stock que cierra",
   "Correos que llegan",
   "Panel propio",
+  "Sin comisión por venta",
   "Precio cerrado",
   "Entrega en días",
 ];
@@ -238,10 +244,13 @@ export default function Home() {
             <br />
             <span className="text-card">al final.</span>
           </h1>
-          <p className="mt-8 text-lg sm:text-xl text-muted max-w-2xl leading-relaxed">
-            Cualquier herramienta con inteligencia artificial te hace un prototipo: esa parte hoy es
-            fácil. Lo difícil es lo que viene después: que los pagos se acrediten, que el stock
-            cierre, que los correos lleguen. Nosotros entramos ahí, a cerrar el partido.
+          <p className="mt-8 text-lg sm:text-xl max-w-2xl leading-relaxed">
+            Hacemos tiendas online, reservas y membresías que funcionan de verdad.
+          </p>
+          <p className="mt-4 text-lg sm:text-xl text-muted max-w-2xl leading-relaxed">
+            El prototipo hoy lo hace cualquiera. Lo difícil es lo que viene después: que los pagos
+            se acrediten, que el stock cierre, que los correos lleguen. Nosotros entramos ahí, a
+            cerrar el partido.
           </p>
 
           {/* tablero de sustitución */}
@@ -271,7 +280,7 @@ export default function Home() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <a
-              href={WA} target="_blank" rel="noopener noreferrer"
+              href={WA_HERO} target="_blank" rel="noopener noreferrer"
               className="bg-card text-pitch font-bold px-6 py-3.5 rounded-sm hover:bg-card-2 transition-colors"
             >
               Escribinos por WhatsApp
@@ -405,6 +414,10 @@ export default function Home() {
             Precio cerrado, plazo en días,{" "}
             <span className="text-card">sin sorpresas.</span>
           </h2>
+          <p className="mt-6 text-lg text-muted max-w-2xl leading-relaxed">
+            ¿Hoy vendés por una plataforma que te cobra comisión por cada venta? Hacé la cuenta a
+            fin de mes. Con tienda propia, cada venta es tuya.
+          </p>
           <div className="mt-16 border-t chalk">
             {paquetes.map((p) => (
               <div
@@ -437,13 +450,21 @@ export default function Home() {
                   Rescate de prototipo
                 </h3>
                 <p className="mt-4 text-lg text-muted leading-relaxed max-w-2xl">
-                  ¿Te hiciste el sitio con inteligencia artificial, o lo empezó alguien que ya no
-                  está, y quedó en el famoso 80%? Lo revisamos y te decimos exactamente qué falta
-                  para que funcione de verdad.
+                  ¿Tenés una página que no funciona, un sitio que quedó a medias, o un prototipo
+                  hecho con inteligencia artificial clavado en el famoso 80%? Lo revisamos y te
+                  decimos exactamente qué falta para que funcione de verdad.
                 </p>
                 <p className="mt-5 font-mono text-card">
                   Diagnóstico en 48 horas · USD 150 · se descuenta del arreglo
                 </p>
+                <a
+                  href={WA_RESCATE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-5 font-mono text-sm uppercase tracking-widest text-redcard hover:text-line transition-colors"
+                >
+                  Mandá tu caso por WhatsApp
+                </a>
               </div>
             </div>
           </div>
@@ -455,8 +476,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 88' plan de crecimiento */}
+      {/* 87' plan de juego */}
       <section className="relative overflow-hidden border-t chalk py-24 bg-pitch-2/50">
+        <Minuto n="87" />
+        <div className="relative mx-auto max-w-6xl px-5">
+          <Eyebrow>87&apos; · El plan de juego</Eyebrow>
+          <h2 className="font-display uppercase text-4xl sm:text-6xl max-w-3xl leading-[1.02] tracking-wide">
+            De tres toques, <span className="text-card">y adentro.</span>
+          </h2>
+          <div className="mt-16 grid sm:grid-cols-3 gap-10">
+            {[
+              {
+                paso: "01",
+                titulo: "Nos escribís",
+                txt: "Contanos qué necesitás por WhatsApp. El mismo día te respondemos con precio cerrado y fecha de entrega.",
+              },
+              {
+                paso: "02",
+                titulo: "Construimos",
+                txt: "Vos mandás fotos, precios y los datos del negocio. El texto lo escribimos nosotros. En 7 a 14 días lo probás andando, con pagos de prueba.",
+              },
+              {
+                paso: "03",
+                titulo: "Salís en vivo",
+                txt: "Publicamos, te enseñamos a usar tu panel y quedamos atrás con el Plan de crecimiento. El negocio lo manejás vos.",
+              },
+            ].map((p) => (
+              <div key={p.paso}>
+                <span className="minuto-outline font-display text-6xl leading-none block select-none" aria-hidden="true">
+                  {p.paso}
+                </span>
+                <h3 className="font-display uppercase text-2xl tracking-wide mt-4">{p.titulo}</h3>
+                <p className="mt-3 text-muted leading-relaxed">{p.txt}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 88' plan de crecimiento */}
+      <section className="relative overflow-hidden border-t chalk py-24">
         <Minuto n="88" />
         <div className="relative mx-auto max-w-6xl px-5 grid lg:grid-cols-2 gap-12">
           <div>
@@ -476,6 +535,50 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 89' preguntas */}
+      <section className="relative overflow-hidden border-t chalk py-24 bg-pitch-2/50">
+        <Minuto n="89" />
+        <div className="relative mx-auto max-w-6xl px-5">
+          <Eyebrow>89&apos; · Antes del pitazo</Eyebrow>
+          <h2 className="font-display uppercase text-4xl sm:text-6xl max-w-3xl leading-[1.02] tracking-wide">
+            Lo que todos <span className="text-card">preguntan.</span>
+          </h2>
+          <div className="mt-14 max-w-3xl border-t chalk">
+            {[
+              {
+                q: "¿El sitio es mío o de ustedes?",
+                a: "Tuyo. El código, el dominio y los datos quedan a tu nombre. Si mañana querés seguir con otra persona, te llevás todo.",
+              },
+              {
+                q: "¿Qué pasa si dejo de pagar el Plan de crecimiento?",
+                a: "El sitio sigue siendo tuyo y sigue funcionando. Dejás de tener soporte, copias de seguridad gestionadas y los cambios del mes. Lo retomás cuando quieras.",
+              },
+              {
+                q: "¿Cómo cobro las ventas?",
+                a: "Directo en tu cuenta de Mercado Pago, o Stripe si vendés desde afuera. La plata va de tu cliente a tu cuenta: nunca pasa por nosotros.",
+              },
+              {
+                q: "¿Qué necesito para arrancar?",
+                a: "Fotos, precios y los datos de tu negocio. El texto del sitio lo escribimos nosotros. No necesitás saber nada técnico.",
+              },
+            ].map((f) => (
+              <details key={f.q} className="group border-b chalk">
+                <summary className="flex items-center justify-between gap-6 py-6 cursor-pointer list-none font-bold text-lg [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <span
+                    className="font-mono text-card text-2xl leading-none transition-transform group-open:rotate-45"
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="pb-6 text-muted leading-relaxed max-w-2xl">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 90'+ cierre: pantalla amarilla */}
       <section className="relative overflow-hidden bg-card text-pitch py-28">
         <div className="relative mx-auto max-w-6xl px-5 text-center">
@@ -491,7 +594,7 @@ export default function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
-              href={WA} target="_blank" rel="noopener noreferrer"
+              href={WA_CIERRE} target="_blank" rel="noopener noreferrer"
               className="bg-pitch text-card font-bold px-6 py-3.5 rounded-sm hover:bg-pitch-2 transition-colors"
             >
               Escribinos por WhatsApp
