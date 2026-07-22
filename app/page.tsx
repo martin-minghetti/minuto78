@@ -243,7 +243,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5">
           <Eyebrow>80&apos; · Lo que se rompe</Eyebrow>
           <h2 className="font-display uppercase text-3xl sm:text-5xl max-w-3xl leading-tight tracking-tight">
-            El primer 80% hoy es casi gratis. El negocio está en el otro 80%.
+            El primer 80% hoy es casi gratis. El negocio está en el 20% que falta.
           </h2>
           <Posesion />
           <div className="mt-12 grid sm:grid-cols-2 gap-x-12 gap-y-8 max-w-4xl">
